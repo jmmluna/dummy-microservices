@@ -21,9 +21,10 @@ Ejecutar para cada proyecto:
 ```
 mvn spring-boot:run -Dspring-boot.run.arguments="--server.port={PORT} --eurekaServerUrl=http://{HOST}:{PORT}/eureka" 
 
-```java
+```
 
 Usar el parámetro -f si se quiere especificar el path del proyecto, de esta manera se puede hacer un script automático para levantar todos los proyectos a la vez:
+
 ```
 REM ****************EUREKA SERVER******************************
 start mvn spring-boot:run -f .\eureka-server -Dspring-boot.run.arguments="--server.port=8085 --eurekaServerUrl=http://localhost:8085/eureka" 
@@ -37,4 +38,4 @@ start mvn spring-boot:run -f .\demows1 -Dspring-boot.run.arguments="--server.por
 REM ****************DUMMY WEB SERVICE 2******************************
 start mvn spring-boot:run -f .\demows2 -Dspring-boot.run.arguments="--server.port=9002 --eurekaServerUrl=http://localhost:8085/eureka" 
 
-```java
+```
