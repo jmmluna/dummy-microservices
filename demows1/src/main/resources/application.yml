@@ -1,0 +1,30 @@
+# server:
+  # port: ${port:8081}
+spring:
+  application:
+    name: dummy-ws-1
+#  security:
+#    oauth2:
+#      client:
+#        registration:
+#          github:
+#            client-id: bc16c494fef87a2ebb60
+#            client-secret: 61312e275bb98c51cd89624ba0e2807d302ec594
+
+management.endpoints.web.base-path: /actuator/info
+management.endpoints.web.exposure.include: "*"
+
+management.endpoint.shutdown.enabled: true
+endpoints.shutdown.enabled: true
+
+eureka:
+  client:
+    service-url:
+      defaultZone: ${eurekaServerUrl}
+
+proxy.user: jmmluna
+proxy.password: K45o0ebu12
+proxy.hostname: internet.agenciaagrariaypesquera.es
+proxy.port: 3128
+
+

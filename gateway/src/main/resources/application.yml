@@ -1,0 +1,87 @@
+# server:
+  # port: ${port:8080}
+
+spring:
+  application:
+    name: gateway
+  security:
+    oauth2:
+      client:
+        provider:
+          keycloak:
+            issuer-uri: http://localhost:8080/auth/realms/dummy-realm            
+            authorization-uri: http://localhost:8080/auth/realms/dummy-realm/protocol/openid-connect/auth
+            token-uri: http://localhost:8080/auth/realms/dummy-realm/protocol/openid-connect/token
+            user-info-uri: http://localhost:8080/auth/realms/dummy-realm/protocol/openid-connect/userinfo
+            jwk-set-uri: http://localhost:8080/auth/realms/dummy-realm/protocol/openid-connect/certs
+            user-name-attribute: preferred_username
+        registration:
+          keycloak:
+            client-id: dummy-backend-client
+            client-secret: 23bf00c4-5c05-4d5a-9a35-35b72ec6c03f           
+            clientName: Keycloak
+            authorization-grant-type: authorization_code           
+#            redirectUri: '{baseUrl}/login/oauth2/code/{registrationId}'
+            redirectUri: 'http://127.0.0.1/dummy-dashboard'             
+            scope:
+              - openid
+              - profile
+              - email
+
+  cloud:
+    gateway:
+      default-filters:
+      - TokenRelay
+      discovery:
+        locator:
+          lower-case-service-id: true
+          enabled: true
+         
+
+spring.cloud.gateway.discovery.locator.predicates[0].name: Path
+spring.cloud.gateway.discovery.locator.predicates[0].args[pattern]: "'/api/'+serviceId+'/**'"          
+spring.cloud.gateway.discovery.locator.filters[0].name: RewritePath
+spring.cloud.gateway.discovery.locator.filters[0].args[regexp]: "'/api/' + serviceId + '/?(?<remaining>.*)'"
+spring.cloud.gateway.discovery.locator.filters[0].args[replacement]: "'/${remaining}'"
+
+
+      # routes:
+      # - id: apiRoute        
+        # uri: lb://gateway
+        # predicates:
+        # - Path=/api/**
+        # filters:
+        # - RewritePath=api,/
+          
+  
+logging:
+  level:
+    org.springframework.cloud.gateway: INFO
+
+management.endpoints.web.base-path: /actuator/info
+management.endpoints.web.exposure.include: "*"
+management.endpoint.gateway.enabled: true 
+    
+
+eureka:
+  client:
+    service-url:
+      defaultZone: ${eurekaServerUrl}
+
+
+
+  #cloud:
+    #gateway:
+      # routes:
+      # - id: demows1        
+        # uri: lb://dummy-ws-1
+        # predicates:
+        # - Path=/ws1/**
+        # filters:
+        # - RewritePath=ws1,/
+      # - id: demows2
+      #  uri: lb://dummy-ws-2
+      #  predicates:
+      #  - Path=/ws2/**
+      #  filters:
+      #  - RewritePath=ws2,/

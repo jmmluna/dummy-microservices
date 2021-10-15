@@ -1,0 +1,21 @@
+spring:
+  application:
+    name: eureka-server
+
+# server:
+  # port: ${port:8761}
+
+eureka:
+  client:    
+    registerWithEureka: false
+    fetchRegistry: false
+    serviceUrl:
+      defaultZone: ${eurekaServerUrl}
+  server:
+    waitTimeInMsWhenSyncEmpty: 0
+
+# eureka.client.register-with-eureka: false
+# eureka.client.fetch-registry: false
+
+# logging.level.com.netflix.eureka: OFF
+# logging.level.com.netflix.discovery: OFF 
