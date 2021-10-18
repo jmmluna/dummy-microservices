@@ -1,7 +1,7 @@
 # dummy-microservices
 Proyecto de muestra para la implementación de una arquitectura de microservicios
 
-# Objectivo
+# Objetivo
 Este proyecto pretende plasmar la estructura mínima necesaria para dar un comportamiento reducido de lo que sería una arquitectura de microservicios. 
 
 # Arquitectura
@@ -14,18 +14,41 @@ La arquitectura de microservicios dummy está formada por los siguientes:
 - Un servidor de identidad, **Keycloak**
 
 # Cliente dummy-dashboard-vanillajs
-Cliente web de pueba implementado en **vanillajs** para probar la arquitectura de microservicios.
+Este proyecto es un cliente web simple (html y js) implementado en **vanillajs**, con la única finalidad de realizar las pruebas oportunas contra la arquitectura de microservicios. 
+El despliegue de este cliente se ha realizado en un Apache (XAMP) y para facilitar la integración del proyecto web junto al resto de componentes, se ha definido en el **httpd.conf** el siguiente alias:
+```
+	Alias /dummy-dashboard "{PATH}\dummy-microservices\dummy-dashboard-vanillajs"
+    <Directory "{PATH}\dummy-microservices\dummy-dashboard-vanillajs">
+    Options Indexes FollowSymLinks Includes ExecCGI
+    AllowOverride All
+    Require all granted
+    </Directory>
+```    
 
-# Para desarrollo
-Ejecutar para cada proyecto:
+
+# Desarrollo
+Para levantar cada proyecto se usa maven de la siguiente manera:
 ```
 mvn spring-boot:run -Dspring-boot.run.arguments="--server.port={PORT} --eurekaServerUrl=http://{HOST}:{PORT}/eureka" 
 
 ```
 
-Usar el parámetro -f si se quiere especificar el path del proyecto, de esta manera se puede hacer un script automático para levantar todos los proyectos a la vez:
+Usar el parámetro -f si se quiere especificar el path del proyecto.
+```
+
+start mvn spring-boot:run -f {PATH} -Dspring-boot.run.arguments="--server.port=8085 --eurekaServerUrl=http://{HOST}:{PORT}/eureka" 
 
 ```
+## Script completo 
+
+Para facilitar y automatizar la ejecución de todos los integrantes de la arquitectura **dummy**, se ha creado el siguiente script (start-dev.bat) para levantar todos los proyectos a la vez:
+```
+REM *******************KEYCLOAK****************************
+start {PATH}\keycloak-15.0.2\bin\standalone
+
+REM *******************APACHE****************************
+start {PATH}\apache_start.bat
+
 REM ****************EUREKA SERVER******************************
 start mvn spring-boot:run -f .\eureka-server -Dspring-boot.run.arguments="--server.port=8085 --eurekaServerUrl=http://localhost:8085/eureka" 
 
@@ -37,5 +60,6 @@ start mvn spring-boot:run -f .\demows1 -Dspring-boot.run.arguments="--server.por
 
 REM ****************DUMMY WEB SERVICE 2******************************
 start mvn spring-boot:run -f .\demows2 -Dspring-boot.run.arguments="--server.port=9002 --eurekaServerUrl=http://localhost:8085/eureka" 
+
 
 ```
