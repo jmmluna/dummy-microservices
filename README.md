@@ -36,7 +36,7 @@ mvn spring-boot:run -Dspring-boot.run.arguments="--server.port={PORT} --eurekaSe
 Usar el parámetro -f si se quiere especificar el path del proyecto.
 ```
 
-start mvn spring-boot:run -f {PATH} -Dspring-boot.run.arguments="--server.port=8085 --eurekaServerUrl=http://{HOST}:{PORT}/eureka" 
+mvn spring-boot:run -f {PATH} -Dspring-boot.run.arguments="--server.port=8085 --eurekaServerUrl=http://{HOST}:{PORT}/eureka" 
 
 ```
 ## Script completo 
