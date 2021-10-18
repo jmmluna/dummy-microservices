@@ -18,7 +18,7 @@ spring:
         registration:
           keycloak:
             client-id: dummy-backend-client
-            client-secret: 23bf00c4-5c05-4d5a-9a35-35b72ec6c03f           
+            client-secret: secret-code           
             clientName: Keycloak
             authorization-grant-type: authorization_code           
 #            redirectUri: '{baseUrl}/login/oauth2/code/{registrationId}'
