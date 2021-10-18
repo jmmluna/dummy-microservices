@@ -3,6 +3,7 @@
 /demows1/.mvn
 /demows1/.classpath
 /demows1/.project
+/demows1/src/main/resources/application_dev.yml
 
 /demows2/target
 /demows2/.settings
@@ -21,3 +22,9 @@
 /gateway/.mvn
 /gateway/.classpath
 /gateway/.project
+/gateway/src/main/resources/application_dev.yml
+
+/dummy-dashboard-vanillajs/.project
+/dummy-dashboard-vanillajs/.settings/
+
+start-dev.bat
