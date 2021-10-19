@@ -26,7 +26,7 @@ Una vez descargado y levantado el servidor de identidad (IS) Keycloak, se llevar
 1. Crear un realm llamado **dummy-realm**.
 2. Crear un rol llamado **dummy_user**
 3. Crear un usuario y asociarle el rol anterior.
-4. Importar el cliente [dummy-backend-client.json](https://github.com/jmmluna/dummy-microservices/conf/dummy-backend-client.json).
+4. Importar el cliente [dummy-backend-client.json](https://github.com/jmmluna/dummy-microservices/tree/main/conf/dummy-backend-client.json).
 
 ## Cliente dummy-dashboard-vanillajs
 Este proyecto es un cliente web simple (html y js) implementado en **vanillajs**, con la única finalidad de realizar las pruebas oportunas contra la arquitectura de microservicios. 
