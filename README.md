@@ -13,16 +13,33 @@ La arquitectura de microservicios dummy está formada por los siguientes:
 - Un servicio centralizado para los microservicios, **API Gateway**. Las peticiones se centralizan a través del api gateway mediante el path: **/api/{service-name}**. El acceso al microservicio será a través del gateway usando Eureka para el auto-descubrimiento por el propio nombre del servicio.
 - Un servidor de identidad, **Keycloak**
 
-# Cliente dummy-dashboard-vanillajs
+# Configuración
+
+El proyecto es una arquitectura de microservicios basada en **Spring Cloud**, para ello se ha configurado en el sistema las siguientes tecnologías:
+
+ - OpenJDK 16.0.1
+ - Apache Maven 3.8.2
+
+## Keycloak
+Una vez descargado y levantado el servidor de identidad (IS) Keycloak, se llevarán a cabo los siguientes pasos:
+
+1. Crear un realm llamado **dummy-realm**.
+2. Crear un rol llamado **dummy_user**
+3. Crear un usuario y asociarle el rol anterior.
+4. Importar el cliente [dummy-backend-client.json](https://github.com/jmmluna/dummy-microservices/conf/dummy-backend-client.json).
+
+## Cliente dummy-dashboard-vanillajs
 Este proyecto es un cliente web simple (html y js) implementado en **vanillajs**, con la única finalidad de realizar las pruebas oportunas contra la arquitectura de microservicios. 
 El despliegue de este cliente se ha realizado en un Apache (XAMP) y para facilitar la integración del proyecto web junto al resto de componentes, se ha definido en el **httpd.conf** el siguiente alias:
 ```
+<IfModule alias_module>
 	Alias /dummy-dashboard "{PATH}\dummy-microservices\dummy-dashboard-vanillajs"
     <Directory "{PATH}\dummy-microservices\dummy-dashboard-vanillajs">
     Options Indexes FollowSymLinks Includes ExecCGI
     AllowOverride All
     Require all granted
     </Directory>
+</IfModule>    
 ```    
 
 
@@ -41,7 +58,8 @@ mvn spring-boot:run -f {PATH} -Dspring-boot.run.arguments="--server.port=8085 --
 ```
 ## Script completo 
 
-Para facilitar y automatizar la ejecución de todos los integrantes de la arquitectura **dummy**, se ha creado el siguiente script (start-dev.bat) para levantar todos los proyectos a la vez:
+Para facilitar y automatizar la ejecución de todos los integrantes de la arquitectura **dummy**, se recomienda crear el siguiente script (start-dev.bat) que permite levantar todos los proyectos simultáneamente:
+
 ```
 REM *******************KEYCLOAK****************************
 start {PATH}\keycloak-15.0.2\bin\standalone
@@ -61,5 +79,8 @@ start mvn spring-boot:run -f .\demows1 -Dspring-boot.run.arguments="--server.por
 REM ****************DUMMY WEB SERVICE 2******************************
 start mvn spring-boot:run -f .\demows2 -Dspring-boot.run.arguments="--server.port=9002 --eurekaServerUrl=http://localhost:8085/eureka" 
 
-
 ```
+
+# Despliegue
+
+El despligue de la arquitectura estará basado en contenedores docker.

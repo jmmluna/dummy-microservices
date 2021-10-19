@@ -2,7 +2,7 @@ const KEYCLOAK_URL = 'http://127.0.0.1:8080';
 const REALM_NAME = 'dummy-realm';
 const LOGOUT_REDIRECT_URI = 'http://127.0.0.1/dummy-dashboard/logout.html';
 
-//const token = localStorage.getItem("token");
+
 if (localStorage.token)
 	showToken(localStorage.token);
 else if (getConsentCode())
@@ -117,19 +117,15 @@ function logout() {
 	if (localStorage.token) {
 		headers.append('Authorization', 'Bearer ' + localStorage.token);
 		headers.append('Content-Type', 'application/x-www-form-urlencoded');
-		//    headers.append("Access-Control-Allow-Origin", "*");
 	}
 	else {
 		alert("No se puede hacer logout, no se encuentra el token!!");
-		window.location.href = "http://127.0.0.1:9000";
+		window.location.href = LOGOUT_REDIRECT_URI;
 		return;
 	}
 
-	//const url = `http://${KEYCLOAK_URL}/auth/realms/${REALM_NAME}/protocol/openid-connect/logout?redirect_uri=${LOGOUT_REDIRECT_URI}`;
-	const url = 'http://127.0.0.1:8080/auth/realms/dummy-realm/protocol/openid-connect/logout';
-	//const url = `http://${KEYCLOAK_URL}/auth/realms/${REALM_NAME}/protocol/openid-connect/logout`;
 
-
+	const url = `${KEYCLOAK_URL}/auth/realms/${REALM_NAME}/protocol/openid-connect/logout`;
 
 	const requestOptions = {
 		method: 'POST',
@@ -141,12 +137,12 @@ function logout() {
 	fetch(url, requestOptions)
 		.then((response) => {			
 			localStorage.clear();
-			window.location.href = "http://127.0.0.1:9000";
+			window.location.href = LOGOUT_REDIRECT_URI;
 		})
 		.catch((error) => {
 			console.log('error', error);
 		}
-		);
+	);
 }
 
 
@@ -199,7 +195,7 @@ function getLogoutParameter() {
 	urlencoded.append('client_id', 'dummy-backend-client');
 	urlencoded.append('client_secret', '23bf00c4-5c05-4d5a-9a35-35b72ec6c03f');
 	urlencoded.append('refresh_token', localStorage.refreshToken);
-	//urlencoded.append('redirect_uri', LOGOUT_REDIRECT_URI);
+//	urlencoded.append('redirect_uri', LOGOUT_REDIRECT_URI);
 
 	return urlencoded;
 
