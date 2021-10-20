@@ -20,7 +20,7 @@ El proyecto es una arquitectura de microservicios basada en **Spring Cloud**, pa
  - OpenJDK 16.0.1
  - Apache Maven 3.8.2
 
-## Keycloak
+## Keycloak ##
 Una vez descargado y levantado el servidor de identidad (IS) Keycloak, se llevarán a cabo los siguientes pasos:
 
 1. Crear un realm llamado **dummy-realm**.
@@ -28,7 +28,7 @@ Una vez descargado y levantado el servidor de identidad (IS) Keycloak, se llevar
 3. Crear un usuario y asociarle el rol anterior.
 4. Importar el cliente [dummy-backend-client.json](https://github.com/jmmluna/dummy-microservices/tree/main/conf/dummy-backend-client.json).
 
-## Cliente dummy-dashboard-vanillajs
+## Cliente dummy-dashboard-vanillajs ##
 Este proyecto es un cliente web simple (html y js) implementado en **vanillajs**, con la única finalidad de realizar las pruebas oportunas contra la arquitectura de microservicios. 
 El despliegue de este cliente se ha realizado en un Apache (XAMP) y para facilitar la integración del proyecto web junto al resto de componentes, se ha definido en el **httpd.conf** el siguiente alias:
 ```
@@ -43,7 +43,7 @@ El despliegue de este cliente se ha realizado en un Apache (XAMP) y para facilit
 ```    
 
 
-# Desarrollo
+# Desarrollo 
 Para levantar cada proyecto se usa maven de la siguiente manera:
 ```
 mvn spring-boot:run -Dspring-boot.run.arguments="--server.port={PORT} --eurekaServerUrl=http://{HOST}:{PORT}/eureka" 
@@ -56,7 +56,7 @@ Usar el parámetro -f si se quiere especificar el path del proyecto.
 mvn spring-boot:run -f {PATH} -Dspring-boot.run.arguments="--server.port={PORT} --eurekaServerUrl=http://{HOST}:{PORT}/eureka" 
 
 ```
-## Script CLI
+## Script CLI ##
 
 Para facilitar y automatizar la ejecución de todos los integrantes de la arquitectura **dummy**, se recomienda crear el siguiente script (start-dev.bat) que permite levantar todos los proyectos simultáneamente:
 
@@ -81,7 +81,7 @@ start mvn spring-boot:run -f .\demows2 -Dspring-boot.run.arguments="--server.por
 
 ```
 
-## Script CLI Console Emulator (cmder)
+## Script CLI Console Emulator (cmder) ##
 
 Si se usa **cmder** para el despliegue de la arquitectua en desarrollo, se podrá definir cada componente en un tab de la consola especificando el nombre de cada uno de ellos:
 
@@ -113,3 +113,25 @@ Se verá el despliegue tal y como se muestra a continuación:
 # Despliegue
 
 El despligue de la arquitectura estará basado en contenedores docker.
+
+# MIT License
+
+Copyright (c) 2020 José María Martínez Luna
+
+Permission is hereby granted, free of charge, to any person obtaining a copy
+of this software and associated documentation files (the "Software"), to deal
+in the Software without restriction, including without limitation the rights
+to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
+copies of the Software, and to permit persons to whom the Software is
+furnished to do so, subject to the following conditions:
+
+The above copyright notice and this permission notice shall be included in all
+copies or substantial portions of the Software.
+
+THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
+AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
+SOFTWARE.
