@@ -33,7 +33,7 @@ Este proyecto es un cliente web simple (html y js) implementado en **vanillajs**
 El despliegue de este cliente se ha realizado en un Apache (XAMP) y para facilitar la integración del proyecto web junto al resto de componentes, se ha definido en el **httpd.conf** el siguiente alias:
 ```
 <IfModule alias_module>
-	Alias /dummy-dashboard "{PATH}\dummy-microservices\dummy-dashboard-vanillajs"
+    Alias /dummy-dashboard "{PATH}\dummy-microservices\dummy-dashboard-vanillajs"
     <Directory "{PATH}\dummy-microservices\dummy-dashboard-vanillajs">
     Options Indexes FollowSymLinks Includes ExecCGI
     AllowOverride All
@@ -53,10 +53,10 @@ mvn spring-boot:run -Dspring-boot.run.arguments="--server.port={PORT} --eurekaSe
 Usar el parámetro -f si se quiere especificar el path del proyecto.
 ```
 
-mvn spring-boot:run -f {PATH} -Dspring-boot.run.arguments="--server.port=8085 --eurekaServerUrl=http://{HOST}:{PORT}/eureka" 
+mvn spring-boot:run -f {PATH} -Dspring-boot.run.arguments="--server.port={PORT} --eurekaServerUrl=http://{HOST}:{PORT}/eureka" 
 
 ```
-## Script completo 
+## Script CLI
 
 Para facilitar y automatizar la ejecución de todos los integrantes de la arquitectura **dummy**, se recomienda crear el siguiente script (start-dev.bat) que permite levantar todos los proyectos simultáneamente:
 
@@ -80,6 +80,35 @@ REM ****************DUMMY WEB SERVICE 2******************************
 start mvn spring-boot:run -f .\demows2 -Dspring-boot.run.arguments="--server.port=9002 --eurekaServerUrl=http://localhost:8085/eureka" 
 
 ```
+
+## Script CLI Console Emulator (cmder)
+
+Si se usa **cmder** para el despliegue de la arquitectua en desarrollo, se podrá definir cada componente en un tab de la consola especificando el nombre de cada uno de ellos:
+
+```
+REM *******************KEYCLOAK********************************
+cmd /k {PATH}\keycloak-15.0.2\bin\standalone "-new_console:t:Keycloak"
+
+REM *******************APACHE**********************************
+cmd /k {PATH}\apache_start.bat "-new_console:t:Apache"
+
+REM ****************EUREKA SERVER******************************
+cmd /k mvn spring-boot:run -f .\eureka-server -Dspring-boot.run.arguments="--server.port=8085 --eurekaServerUrl=http://localhost:8085/eureka" "-new_console:t:Eureka"
+
+REM ****************API GATEWAY********************************
+cmd /k mvn spring-boot:run -f .\gateway -Dspring-boot.run.arguments="--server.port=9000 --eurekaServerUrl=http://localhost:8085/eureka" "-new_console:t:Gateway"
+
+REM ****************DUMMY WEB SERVICE 1******************************
+cmd /k mvn spring-boot:run -f .\demows1 -Dspring-boot.run.arguments="--server.port=9001 --eurekaServerUrl=http://localhost:8085/eureka" "-new_console:t:Demo1ws"
+
+REM ****************DUMMY WEB SERVICE 2******************************
+cmd /k mvn spring-boot:run -f .\demows2 -Dspring-boot.run.arguments="--server.port=9002 --eurekaServerUrl=http://localhost:8085/eureka" "-new_console:t:Demo2ws"
+
+```
+
+Se verá el despliegue tal y como se muestra a continuación:
+
+![Screenshot](https://github.com/jmmluna/dummy-microservices/blob/master/conf/cmder-screenshot.png)
 
 # Despliegue
 
