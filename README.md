@@ -108,7 +108,7 @@ cmd /k mvn spring-boot:run -f .\demows2 -Dspring-boot.run.arguments="--server.po
 
 Se verá el despliegue tal y como se muestra a continuación:
 
-![Screenshot](https://github.com/jmmluna/dummy-microservices/blob/master/conf/cmder-screenshot.png)
+![Screenshot](https://github.com/jmmluna/dummy-microservices/blob/master/conf/cmder-screenshot.jpg)
 
 # Despliegue
 
