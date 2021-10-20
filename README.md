@@ -110,6 +110,10 @@ Se verá el despliegue tal y como se muestra a continuación:
 
 ![ScreenShot](/conf/cmder-screenshot.jpg)
 
+Si todo ha ido satisfactoriamente se podrá consultar el estado de nuestros servicios a través de **Eureka** en la url **http://127.0.0.1:8085/**.
+
+![ScreenShot](/conf/eureka-screenshot.jpg)
+
 # Despliegue
 
 El despligue de la arquitectura estará basado en contenedores docker.
