@@ -34,15 +34,19 @@
 <label><b>Age:</b> </label><label id="age"></label>
 <hr>
 <button id="demo2wsButton">Demo2 ws</button> | 
-<button onclick="logout()" id="logoutButton">Logout</button>
+<button id="logoutButton">Logout</button>
 <br>
-<button onclick="getUserInfo()" id="userInfoButton">Información de usuario</button>
+<button  id="userInfoButton">Información de usuario</button>
 <br>
-<button onclick="getRefreshToken()" id="userInfoButton">Token de refresco</button>
+<button  id="refreshTokenButton">Token de refresco</button>
 
 
 
-<script src="js/TokenInfo.js" type="text/javascript"></script>
+<script src="js/model/Oauth2Token.js" type="text/javascript"></script>
+<script src="js/Api.js" type="text/javascript"></script>
 <script src="js/Session.js" type="text/javascript"></script>
-<script src="js/general.js" type="text/javascript"></script>
+<script src="js/views/dashboardView.js" type="text/javascript"></script>
+<script src="js/views/buttons/UserInfoButton.js" type="text/javascript"></script>
+<script src="js/views/buttons/LogoutButton.js" type="text/javascript"></script>
+<script src="js/views/buttons/RefreshTokenButton.js" type="text/javascript"></script>
 <script src="js/main.js" type="text/javascript"></script>
